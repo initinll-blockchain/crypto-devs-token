@@ -3,18 +3,18 @@ pragma solidity 0.8.13;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "./ICryptoDevs.sol";
+import "./ICryptoDevsNFT.sol";
 
-interface ICryptoDevToken {
+interface ICryptoDevsToken {
     function mint(uint256 amount) external payable;
     function claim() external;
     receive() external payable;
     fallback() external payable;
 }
 
-contract CryptoDevToken is ICryptoDevToken, ERC20, Ownable {
+contract CryptoDevsToken is ICryptoDevsToken, ERC20, Ownable {
 
-    ICryptoDevs private cryptoDevsNFT;
+    ICryptoDevsNFT private cryptoDevsNFT;
 
     uint256 public constant ERC20_TOKEN_PRICE = 0.001 ether;
     uint256 public constant ERC20_TOKENS_PER_NFT = 10 * 10**18;
@@ -23,7 +23,7 @@ contract CryptoDevToken is ICryptoDevToken, ERC20, Ownable {
     mapping(uint256 => bool) public erc721_tokenIds_claimed;
 
     constructor(address _cryptoDevsContract) ERC20("Crypto Dev Token", "CD") {
-        cryptoDevsNFT = ICryptoDevs(_cryptoDevsContract);
+        cryptoDevsNFT = ICryptoDevsNFT(_cryptoDevsContract);
     }
 
     /**
