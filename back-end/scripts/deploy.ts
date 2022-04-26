@@ -15,14 +15,14 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const cryptoDevTokenContract = await ethers.getContractFactory("CryptoDevsToken");
-  const cryptoDevToken = await cryptoDevTokenContract.deploy(
+  const cryptoDevTokenContractFactory = await ethers.getContractFactory("CryptoDevsToken");
+  const cryptoDevTokenContract = await cryptoDevTokenContractFactory.deploy(
     CRYPTODEVSNFT_CONTRACT_ADDRESS
   );
+  
+  await cryptoDevTokenContract.deployed();
 
-  await cryptoDevToken.deployed();
-
-  console.log("CryptoDevToken deployed to: ", cryptoDevToken.address);
+  console.log("CryptoDevToken deployed to: ", cryptoDevTokenContract.address);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
