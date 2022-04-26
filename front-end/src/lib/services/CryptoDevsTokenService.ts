@@ -96,6 +96,21 @@ export async function switchNetwork(chainId: string): Promise<void> {
     }
 }
 
+export function onChainChanged(handleChainChanged: any){
+    try {
+        const { ethereum } = window;
+
+        if (!ethereum) {
+            alert("Make sure you have metamask!");
+            return;
+        }
+
+        ethereum.on('chainChanged', handleChainChanged);
+    } catch (error) {
+        throw error;
+    }
+}
+
 export async function getOwner(): Promise<boolean> {
     let result:boolean = false;
 
@@ -214,7 +229,7 @@ function getContract_nft(): Contract {
 
         if (signer) {
             cryptoDevsNFTContract = new ethers.Contract(contractAddress, contractABI, signer);
-            console.log("CryptoDevsTokenContract", cryptoDevsNFTContract.address);
+            console.log("CryptoDevsERC721Contract", cryptoDevsNFTContract.address);
         }
     } catch (error) {
         console.log("getContract_nft", error);
@@ -233,7 +248,7 @@ function getContract_token(): Contract {
 
         if (signer) {
             cryptoDevsTokenContract = new ethers.Contract(contractAddress, contractABI, signer);
-            console.log("CryptoDevsTokenContract", cryptoDevsTokenContract.address);
+            console.log("CryptoDevsERC20Contract", cryptoDevsTokenContract.address);
         }
     } catch (error) {
         console.log("getContract_token", error);
