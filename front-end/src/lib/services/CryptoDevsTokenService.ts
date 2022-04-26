@@ -166,7 +166,7 @@ export async function getERC20TokenBalance ():Promise<number> {
     try {
         const cryptoDevsTokenContract = getContract_token();
         const signerAddress = await getSigner().getAddress();
-        erc20TokenBalance = await cryptoDevsTokenContract.balanceOf(signerAddress);
+        erc20TokenBalance = Number(ethers.utils.formatEther(await cryptoDevsTokenContract.balanceOf(signerAddress)));
     } catch (error) {
         console.error("getERC20TokenBalance", error);
     }
